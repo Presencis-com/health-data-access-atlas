@@ -160,7 +160,7 @@ Flags describe the named route and its scope. Check the cited rules for the spec
 - Subgroup or bias evidence expected: No
 - Disclosure controls expected: Yes
 - Dates and timing: The legacy Lab page reports a transition to new services. The separate external request process describes expedited and customised applications, with longer turnaround for complex requests.
-- [Official source 1](https://www.elegislation.gov.hk/hk/cap486)
+- [Official source 1](https://www3.ha.org.hk/data/Home/PrivacyPolicy)
 - [Official source 2](https://www3.ha.org.hk/data/dcl/)
 - [Official source 3](https://www3.ha.org.hk/data/Provision/Index/)
 - [Official source 4](https://www3.ha.org.hk/data/Provision/ApplicationProcedure)
