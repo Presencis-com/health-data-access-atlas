@@ -1,0 +1,13 @@
+{
+  "name": "@presencis/health-ai-inclusivity-report",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "node --test test/validate-inclusivity.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  }
+}

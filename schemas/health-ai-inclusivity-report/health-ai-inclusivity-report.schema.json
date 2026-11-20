@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Health-AI Dataset Inclusivity and Disclosure-Control Report",
+  "description": "Aggregate evidence for an identified evaluation cohort.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "data_classification",
+    "label",
+    "reference_population",
+    "cohort_size_rounded",
+    "missingness_summary",
+    "representation_ratios",
+    "subgroup_performance",
+    "disclosure_control",
+    "regulatory_clause_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "presencis-health-ai-inclusivity-v1"
+    },
+    "data_classification": {
+      "enum": [
+        "synthetic-example",
+        "in-environment-aggregated"
+      ]
+    },
+    "label": {
+      "$ref": "#/definitions/text"
+    },
+    "reference_population": {
+      "$ref": "#/definitions/text"
+    },
+    "cohort_size_rounded": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "missingness_summary": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "field",
+          "missing_count_rounded",
+          "missing_share"
+        ],
+        "properties": {
+          "field": {
+            "$ref": "#/definitions/text"
+          },
+          "missing_count_rounded": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "missing_share": {
+            "$ref": "#/definitions/share"
+          }
+        }
+      }
+    },
+    "representation_ratios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "group",
+          "cohort_share",
+          "reference_share",
+          "ci_95_low",
+          "ci_95_high",
+          "disparity_ratio",
+          "flag"
+        ],
+        "properties": {
+          "group": {
+            "$ref": "#/definitions/text"
+          },
+          "cohort_share": {
+            "$ref": "#/definitions/share"
+          },
+          "reference_share": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          },
+          "ci_95_low": {
+            "$ref": "#/definitions/share"
+          },
+          "ci_95_high": {
+            "$ref": "#/definitions/share"
+          },
+          "disparity_ratio": {
+            "type": "number",
+            "minimum": 0
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "subgroup_performance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/performance"
+      }
+    },
+    "disclosure_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min_cell_threshold",
+        "rounding_base",
+        "small_cells_suppressed_count",
+        "reidentification_guard_applied"
+      ],
+      "properties": {
+        "min_cell_threshold": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rounding_base": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "small_cells_suppressed_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reidentification_guard_applied": {
+          "type": "boolean"
+        }
+      }
+    },
+    "regulatory_clause_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "EU AI Act Art. 10(2)(f)",
+          "EU AI Act Art. 10(2)(g)",
+          "EU AI Act Art. 10(3)",
+          "EHDS Art. 53(1)(e)",
+          "EHDS Art. 67(2)"
+        ]
+      },
+      "uniqueItems": true,
+      "maxItems": 5
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "data_classification": {
+            "const": "synthetic-example"
+          }
+        },
+        "required": [
+          "data_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "label": {
+            "const": "SYNTHETIC EXAMPLE — ZERO REAL PATIENTS"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "label": {
+            "const": "IN-ENVIRONMENT AGGREGATE"
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "pattern": "\\S"
+    },
+    "share": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "group",
+        "suppressed"
+      ],
+      "properties": {
+        "group": {
+          "$ref": "#/definitions/text"
+        },
+        "suppressed": {
+          "type": "boolean"
+        },
+        "cell_size_rounded": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sensitivity": {
+          "$ref": "#/definitions/share"
+        },
+        "specificity": {
+          "$ref": "#/definitions/share"
+        },
+        "ppv": {
+          "$ref": "#/definitions/share"
+        },
+        "npv": {
+          "$ref": "#/definitions/share"
+        },
+        "calibration": {
+          "$ref": "#/definitions/share"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "suppressed": {
+                "const": true
+              }
+            },
+            "required": [
+              "suppressed"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cell_size_rounded": false,
+              "sensitivity": false,
+              "specificity": false,
+              "ppv": false,
+              "npv": false,
+              "calibration": false
+            }
+          },
+          "else": {
+            "required": [
+              "cell_size_rounded",
+              "sensitivity",
+              "specificity",
+              "ppv",
+              "npv",
+              "calibration"
+            ],
+            "properties": {
+              "cell_size_rounded": {},
+              "sensitivity": {},
+              "specificity": {},
+              "ppv": {},
+              "npv": {},
+              "calibration": {}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

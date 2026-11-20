@@ -1,0 +1,63 @@
+{
+  "schema_version": "presencis-health-ai-inclusivity-v1",
+  "data_classification": "synthetic-example",
+  "label": "SYNTHETIC EXAMPLE — ZERO REAL PATIENTS",
+  "reference_population": "Simulated target population for an illustrative triage model. Groups illustrate different dimensions and can overlap.",
+  "cohort_size_rounded": 2000,
+  "missingness_summary": [
+    {
+      "field": "Simulated region",
+      "missing_count_rounded": 120,
+      "missing_share": 0.06
+    }
+  ],
+  "representation_ratios": [
+    {
+      "group": "Simulated rural cohort",
+      "cohort_share": 0.24,
+      "reference_share": 0.32,
+      "ci_95_low": 0.222,
+      "ci_95_high": 0.259,
+      "disparity_ratio": 0.75,
+      "flag": true
+    },
+    {
+      "group": "Simulated age 65+",
+      "cohort_share": 0.36,
+      "reference_share": 0.36,
+      "ci_95_low": 0.339,
+      "ci_95_high": 0.381,
+      "disparity_ratio": 1,
+      "flag": false
+    }
+  ],
+  "subgroup_performance": [
+    {
+      "group": "Simulated rural cohort",
+      "suppressed": false,
+      "cell_size_rounded": 480,
+      "sensitivity": 0.84,
+      "specificity": 0.89,
+      "ppv": 0.74,
+      "npv": 0.94,
+      "calibration": 0.97
+    },
+    {
+      "group": "Simulated rare region",
+      "suppressed": true
+    }
+  ],
+  "disclosure_control": {
+    "min_cell_threshold": 20,
+    "rounding_base": 10,
+    "small_cells_suppressed_count": 1,
+    "reidentification_guard_applied": true
+  },
+  "regulatory_clause_refs": [
+    "EU AI Act Art. 10(2)(f)",
+    "EU AI Act Art. 10(2)(g)",
+    "EU AI Act Art. 10(3)",
+    "EHDS Art. 53(1)(e)",
+    "EHDS Art. 67(2)"
+  ]
+}
