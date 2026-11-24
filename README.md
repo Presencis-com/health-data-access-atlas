@@ -21,3 +21,10 @@ unshare -c -p -f --mount-proc python3 tests/verify_atlas.py /path/to/data/train-
 ```
 
 The Python check accepts `--dump-text` with an output path to inspect decoded Parquet rows, schema and metadata. When changing a row, regenerate the CSV, reader atlas and Parquet file, then update the explorer and Regulatory MCP JSON snapshots.
+
+## Related Documentation
+
+- [EHDS Regulatory Guide](https://presencis.com/regulations/ehds/) · [Healthcare Sector Hub](https://presencis.com/sectors/health/)
+- [NHS DCB0129](https://presencis.com/regulations/dcb0129/) · [NHS DCB0160](https://presencis.com/regulations/dcb0160/) · [NHS DTAC](https://presencis.com/regulations/dtac/) · [Full Regulatory Corpus](https://presencis.com/regulations/)
+- [Interactive Explorer (Hugging Face Space)](https://huggingface.co/spaces/presencis/health-data-access-explorer) · [Parquet Dataset (Hugging Face)](https://huggingface.co/datasets/presencis/health-data-access-atlas)
+- [Presencis Regulatory MCP (`@presencis/regulatory-mcp`)](https://github.com/Presencis-com/regulatory-mcp)
